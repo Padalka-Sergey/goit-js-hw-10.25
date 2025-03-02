@@ -7,7 +7,7 @@ const ref = {
   textError: document.querySelector('.error'),
 };
 
-fetchBreeds(makeMarkupSelect, showLoaderSelect);
+fetchBreeds(makeMarkupSelect, showSelect, removeLoader, showError);
 ref.select.addEventListener('change', selectedCat);
 
 function makeMarkupSelect(dataResp) {
@@ -19,9 +19,9 @@ function makeMarkupSelect(dataResp) {
 
 function selectedCat(evt) {
   const selectedValue = evt.currentTarget.value;
-  fetchCatByBreed(selectedValue, makeMarkupCat, showLoaderCat);
+  fetchCatByBreed(selectedValue, makeMarkupCat, removeLoader, showError);
   ref.catInfo.innerHTML = '';
-  ref.textLoader.classList.remove('is-notActive-loader');
+  showLoader();
 }
 
 function makeMarkupCat(dataResp) {
@@ -31,11 +31,20 @@ width="350"/><div class="text-info"><h1>${dataResp[0].breeds[0].name}</h1><p>${d
   ref.catInfo.insertAdjacentHTML('beforeend', markup);
 }
 
-function showLoaderSelect() {
+function showSelect() {
   ref.select.classList.remove('is-notActive-select');
-  ref.textLoader.classList.add('is-notActive-loader');
 }
 
-function showLoaderCat() {
+function removeLoader() {
   ref.textLoader.classList.add('is-notActive-loader');
 }
+function showLoader() {
+  ref.textLoader.classList.remove('is-notActive-loader');
+}
+
+function showError() {
+  ref.textError.classList.remove('is-notActive-error');
+}
+// function removeError() {
+//   ref.textError.classList.add('is-notActive-error');
+// }

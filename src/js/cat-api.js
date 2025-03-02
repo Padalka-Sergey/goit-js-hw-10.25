@@ -5,26 +5,31 @@ axios.defaults.headers.common['x-api-key'] =
   'live_dQuAF2pHJj23iJ2FMfklaGTDoTtwEarWY1Oy4DhSrDVaK6BwG3daRESWIuzSfuis';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-function fetchBreeds(makeMarkupSelect, showLoaderSelect) {
+function fetchBreeds(makeMarkupSelect, showSelect, removeLoader, showError) {
   axios
     .get('/breeds')
     .then(({ data }) => {
       makeMarkupSelect(data);
-      showLoaderSelect();
+      showSelect();
+      removeLoader();
     })
     .catch(error => {
+      showError();
+      removeLoader();
       console.log(error);
     });
 }
 
-function fetchCatByBreed(breedId, makeMarkupCat, showLoaderCat) {
+function fetchCatByBreed(breedId, makeMarkupCat, removeLoader, showError) {
   axios
     .get(`images/search?breed_ids=${breedId}`)
     .then(({ data }) => {
       makeMarkupCat(data);
-      showLoaderCat();
+      removeLoader();
     })
     .catch(error => {
+      showError();
+      removeLoader();
       console.log(error);
     });
 }
