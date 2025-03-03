@@ -5,7 +5,8 @@ axios.defaults.headers.common['x-api-key'] =
   'live_dQuAF2pHJj23iJ2FMfklaGTDoTtwEarWY1Oy4DhSrDVaK6BwG3daRESWIuzSfuis';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-function fetchBreeds(makeMarkupSelect, showSelect, removeLoader, showError) {
+function fetchBreeds(funcs) {
+  const { makeMarkupSelect, showSelect, removeLoader, showError } = funcs;
   axios
     .get('/breeds')
     .then(({ data }) => {
@@ -20,7 +21,13 @@ function fetchBreeds(makeMarkupSelect, showSelect, removeLoader, showError) {
     });
 }
 
-function fetchCatByBreed(breedId, makeMarkupCat, removeLoader, showError) {
+function fetchCatByBreed(funcs) {
+  const {
+    selectedValue: breedId,
+    makeMarkupCat,
+    removeLoader,
+    showError,
+  } = funcs;
   axios
     .get(`images/search?breed_ids=${breedId}`)
     .then(({ data }) => {

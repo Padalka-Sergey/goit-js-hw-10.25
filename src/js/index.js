@@ -7,7 +7,7 @@ const ref = {
   textError: document.querySelector('.error'),
 };
 
-fetchBreeds(makeMarkupSelect, showSelect, removeLoader, showError);
+fetchBreeds({ makeMarkupSelect, showSelect, removeLoader, showError });
 ref.select.addEventListener('change', selectedCat);
 
 function makeMarkupSelect(dataResp) {
@@ -19,7 +19,7 @@ function makeMarkupSelect(dataResp) {
 
 function selectedCat(evt) {
   const selectedValue = evt.currentTarget.value;
-  fetchCatByBreed(selectedValue, makeMarkupCat, removeLoader, showError);
+  fetchCatByBreed({ selectedValue, makeMarkupCat, removeLoader, showError });
   ref.catInfo.innerHTML = '';
   showLoader();
 }
