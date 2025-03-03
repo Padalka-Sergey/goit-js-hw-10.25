@@ -7,7 +7,16 @@ const ref = {
   textError: document.querySelector('.error'),
 };
 
-fetchBreeds({ makeMarkupSelect, showSelect, removeLoader, showError });
+fetchBreeds()
+  .then(data => {
+    makeMarkupSelect(data);
+    showSelect();
+    removeLoader();
+  })
+  .catch(() => {
+    showError(), removeLoader();
+  });
+
 ref.select.addEventListener('change', selectedCat);
 
 function makeMarkupSelect(dataResp) {
@@ -19,7 +28,15 @@ function makeMarkupSelect(dataResp) {
 
 function selectedCat(evt) {
   const selectedValue = evt.currentTarget.value;
-  fetchCatByBreed({ selectedValue, makeMarkupCat, removeLoader, showError });
+
+  fetchCatByBreed(selectedValue)
+    .then(data => {
+      makeMarkupCat(data);
+      removeLoader();
+    })
+    .catch(() => {
+      showError(), removeLoader();
+    });
   ref.catInfo.innerHTML = '';
   showLoader();
 }
@@ -45,6 +62,3 @@ function showLoader() {
 function showError() {
   ref.textError.classList.remove('is-notActive-error');
 }
-// function removeError() {
-//   ref.textError.classList.add('is-notActive-error');
-// }
