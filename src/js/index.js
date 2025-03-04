@@ -1,4 +1,5 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
+import SlimSelect from 'slim-select';
 
 const ref = {
   select: document.querySelector('.breed-select'),
@@ -11,8 +12,12 @@ fetchBreeds()
   .then(data => {
     makeMarkupSelect(data);
     showSelect();
+    new SlimSelect({
+      select: ref.select,
+    });
     removeLoader();
   })
+
   .catch(() => {
     showError(), removeLoader();
   });
@@ -20,10 +25,19 @@ fetchBreeds()
 ref.select.addEventListener('change', selectedCat);
 
 function makeMarkupSelect(dataResp) {
+  console.log('Make Markup Select');
   const markup = dataResp
     .map(dataEl => `<option value=${dataEl.id}>${dataEl.name}</option>`)
     .join('');
   ref.select.insertAdjacentHTML('beforeend', markup);
+  // const markup = dataResp.map(dataEl => {
+  //   return { text: dataEl.name, value: dataEl.id };
+  // });
+  // console.log(markup);
+  // new SlimSelect({
+  //   select: ref.select,
+  //   data: markup,
+  // });
 }
 
 function selectedCat(evt) {
@@ -62,3 +76,10 @@ function showLoader() {
 function showError() {
   ref.textError.classList.remove('is-notActive-error');
 }
+
+// function makeSlim() {
+//   console.log('Make Slim Select');
+//   new SlimSelect({
+//     select: ref.select,
+//   });
+// }

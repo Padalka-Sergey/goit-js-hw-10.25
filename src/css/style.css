@@ -1,3 +1,5 @@
+@import url('../../node_modules/slim-select/dist/slimselect.css');
+
 .is-notActive-select,
 .is-notActive-loader,
 .is-notActive-error {
@@ -17,3 +19,53 @@ h1 {
 .error {
   color: red;
 }
+
+/* //========================== */
+
+/* // Main content enlargements */
+/* .breed-select.ss-main {
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+} */
+
+/* // Target the class on the img */
+/* .breed-select.ss-main .ss-single .ss-values {
+  width: 30px;
+  padding: 0 8px 0 8px;
+} */
+
+/* // Target the options
+// Update sizing and alignment */
+/* .breed-select.ss-content .ss-option {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 14px;
+  font-weight: bold;
+} */
+
+/* // Target the class on the img */
+/* .breed-select.ss-content .ss-option .ss-values {
+  width: 30px;
+  padding: 0 8px 0 8px;
+} */
+
+/* select { */
+/* background: rgb(238, 235, 247);
+  outline: none;
+  color: grey;
+  border: none;
+  width: 100%;
+  max-width: 250px; */
+/* display: block; */
+/* margin: 0 auto; */
+/* height: 50px;
+  padding: 0 20px;
+  font-size: 18px;
+  border: none; */
+/* outline: 0; */
+/* } */
+/* .ss-main .ss-single-selected {
+  height: 50px;
+} */
