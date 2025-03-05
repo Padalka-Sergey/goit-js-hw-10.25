@@ -8,9 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 function fetchBreeds() {
   return axios
     .get('/breeds')
-    .then(({ data }) => {
-      return data;
-    })
+    .then(({ data }) => data)
     .catch(error => {
       console.log(error);
     });
@@ -19,9 +17,7 @@ function fetchBreeds() {
 function fetchCatByBreed(breedId) {
   return axios
     .get(`images/search?breed_ids=${breedId}`)
-    .then(({ data }) => {
-      return data;
-    })
+    .then(({ data }) => data)
     .catch(error => {
       console.log(error);
     });

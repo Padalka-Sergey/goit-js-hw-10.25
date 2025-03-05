@@ -1,20 +1,26 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import SlimSelect from 'slim-select';
 
+Notiflix.Notify.init({
+  width: '400px',
+  position: 'right-top',
+});
+
+const DELAYNOTIF = 10000;
+
 const ref = {
   select: document.querySelector('.breed-select'),
   catInfo: document.querySelector('.cat-info'),
-  textLoader: document.querySelector('.loader'),
-  textError: document.querySelector('.error'),
+  loader: document.querySelector('.loader'),
+  loaderContainer: document.querySelector('.loader-container'),
+  // textError: document.querySelector('.error'),
 };
 
 fetchBreeds()
   .then(data => {
     makeMarkupSelect(data);
     showSelect();
-    new SlimSelect({
-      select: ref.select,
-    });
+    makeSlimSelect();
     removeLoader();
   })
 
@@ -25,19 +31,10 @@ fetchBreeds()
 ref.select.addEventListener('change', selectedCat);
 
 function makeMarkupSelect(dataResp) {
-  console.log('Make Markup Select');
   const markup = dataResp
     .map(dataEl => `<option value=${dataEl.id}>${dataEl.name}</option>`)
     .join('');
   ref.select.insertAdjacentHTML('beforeend', markup);
-  // const markup = dataResp.map(dataEl => {
-  //   return { text: dataEl.name, value: dataEl.id };
-  // });
-  // console.log(markup);
-  // new SlimSelect({
-  //   select: ref.select,
-  //   data: markup,
-  // });
 }
 
 function selectedCat(evt) {
@@ -67,19 +64,26 @@ function showSelect() {
 }
 
 function removeLoader() {
-  ref.textLoader.classList.add('is-notActive-loader');
+  ref.loader.classList.add('is-notActive-loader');
+  ref.loaderContainer.classList.add('is-notActive-loader');
 }
 function showLoader() {
-  ref.textLoader.classList.remove('is-notActive-loader');
+  ref.loader.classList.remove('is-notActive-loader');
+  ref.loaderContainer.classList.remove('is-notActive-loader');
 }
 
 function showError() {
-  ref.textError.classList.remove('is-notActive-error');
+  // ref.textError.classList.remove('is-notActive-error');
+  Notiflix.Notify.failure(
+    `Oops! Something went wrong! Try reloading the page!`,
+    {
+      timeout: DELAYNOTIF,
+    }
+  );
 }
 
-// function makeSlim() {
-//   console.log('Make Slim Select');
-//   new SlimSelect({
-//     select: ref.select,
-//   });
-// }
+function makeSlimSelect() {
+  new SlimSelect({
+    select: ref.select,
+  });
+}
